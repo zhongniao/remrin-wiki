@@ -22,14 +22,14 @@ public class EbookService {
         criteria.andNameLike("%" + req.getName() + "%");
         List<Ebook> ebookList = ebookMapper.selectByExample(ebookExample);
 
-//        List<EbookResp> respList = new ArrayList<>();
-//        for (Ebook ebook : ebookList) {
-//            EbookResp ebookResp = new EbookResp();
-//            BeanUtils.copyProperties(ebook, ebookResp);
-//            respList.add(ebookResp);
-//        }
+        // List<EbookResp> respList = new ArrayList<>();
+        // for (Ebook ebook : ebookList) {
+        //    EbookResp ebookResp = new EbookResp();
+        //    BeanUtils.copyProperties(ebook, ebookResp);
+        //    respList.add(ebookResp);
+        // }
 
-        //列表复制
+        // 列表复制
         List<EbookResp> list = CopyUtil.copyList(ebookList, EbookResp.class);
 
         return list;
