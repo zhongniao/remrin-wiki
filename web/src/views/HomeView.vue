@@ -61,7 +61,7 @@
               <template #title>
                 <a :href="item.href">{{ item.name }}</a>
               </template>
-              <template #avatar><a-avatar :src="item.cover" /></template>
+              <template #avatar><a-avatar shape="square" :src="item.cover" :size="50" /></template>
             </a-list-item-meta>
           </a-list-item>
         </template>
@@ -114,7 +114,7 @@ export default defineComponent({
     ];
 
     onMounted(() => {
-      axios.get("http://localhost:8880/ebook/list?name=Vue").then((response) => {
+      axios.get("http://localhost:8880/ebook/list").then((response) => {
         // console.log(response)
         const data = response.data
         ebooks.value = data.content
