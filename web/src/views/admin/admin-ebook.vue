@@ -22,7 +22,7 @@
           </template>
           <template v-else-if="column.key === 'action'">
             <a-space size="small">
-              <a-button type="primary">
+              <a-button type="primary" @click="edit">
                 编辑
               </a-button>
               <a-button type="danger">
@@ -34,6 +34,15 @@
       </a-table>
     </a-layout-content>
   </a-layout>
+
+  <a-modal
+      v-model:visible="modalVisible"
+      title="Title"
+      :confirm-loading="modalLoading"
+      @ok="handleModalOk"
+  >
+    <p>test</p>
+  </a-modal>
 </template>
 
 <script lang="ts">
@@ -126,6 +135,31 @@ export default defineComponent({
       })
     }
 
+    // -------- 表单 --------
+    // const modalText = ref<string>('Content of the modal');
+    const modalVisible = ref<boolean>(false);
+    const modalLoading = ref<boolean>(false);
+
+    // const showModal = () => {
+    //   visible.value = true;
+    // };
+
+    const handleModalOk = () => {
+      // modalText.value = 'The modal will be closed after two seconds';
+      modalLoading.value = true;
+      setTimeout(() => {
+        modalVisible.value = false;
+        modalLoading.value = false;
+      }, 2000);
+    };
+
+    /**
+     * 编辑
+     */
+    const edit = () => {
+      modalVisible.value = true
+    }
+
     onMounted(() => {
       handleQuery({
         page: 1,
@@ -138,7 +172,11 @@ export default defineComponent({
       pagination,
       columns,
       loading,
-      handleTableChange
+      handleTableChange,
+      edit,
+      modalVisible,
+      modalLoading,
+      handleModalOk
     };
   },
 });
