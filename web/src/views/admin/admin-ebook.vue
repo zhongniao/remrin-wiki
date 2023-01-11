@@ -87,7 +87,7 @@ export default defineComponent({
     const ebooks = ref()
     const pagination = ref({
       current: 1,
-      pageSize: 4,
+      pageSize: 10,
       total: 0
     })
     const loading = ref(false)
@@ -172,29 +172,25 @@ export default defineComponent({
 
     // -------- 表单 --------
     const ebook = ref({});
-    // const modalText = ref<string>('Content of the modal');
     const modalVisible = ref<boolean>(false);
     const modalLoading = ref<boolean>(false);
 
-    // const showModal = () => {
-    //   visible.value = true;
-    // };
-
     const handleModalOk = () => {
-      // modalText.value = 'The modal will be closed after two seconds';
       modalLoading.value = true;
 
       axios.post("/ebook/save", ebook.value).then((response) => {
+        modalLoading.value = false;
         const data = response.data
         if (data.success) {
           modalVisible.value = false;
-          modalLoading.value = false;
 
           // 重新加载列表
           handleQuery({
             page: pagination.value.current,
             size: pagination.value.pageSize
           })
+        } else {
+          message.error(data.message)
         }
       })
     };
