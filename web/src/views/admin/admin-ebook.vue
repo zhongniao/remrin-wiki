@@ -100,6 +100,7 @@ import { defineComponent, ref, onMounted } from 'vue';
 import axios from "axios";
 import {TableColumnsType} from "ant-design-vue";
 import { message } from "ant-design-vue";
+import {Tool} from "@/util/tool";
 
 export default defineComponent({
   name: 'AdminEbook',
@@ -223,7 +224,7 @@ export default defineComponent({
      */
     const edit = (record: any) => {
       modalVisible.value = true
-      ebook.value = record
+      ebook.value = Tool.copy(record)
     }
 
     /**
